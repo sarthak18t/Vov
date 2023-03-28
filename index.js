@@ -21,14 +21,13 @@ app.use((req,res,next)=>{
     res.status(400).send({"message":"db is down"});
     }
     else
-    {res.send("hello")}
     next();
 })
 app.use(playeri);
 app.use(addi);
 
 app.listen(port,()=>{
-
+    fire();
     console.log("app is running at "+port);
 })
 

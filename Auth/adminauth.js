@@ -6,7 +6,7 @@ const auth = (req,res,next)=>{
     console.log("auth Middleware")
     if(req.header('authToken')){
         var token = req.header('authToken');
-        var mk = jwt.verify(token,process.env.ATP);
+        var mk = jwt.verify(token,"admintkn");
         console.log(mk);
         admin.findOne({_id: mk._id,'tokens.token':token})
         .then((v)=>{

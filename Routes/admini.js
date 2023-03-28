@@ -32,7 +32,7 @@ router.get('/admin/login',(req,res)=>{
     admin.findOne({email: email})
     .then((v)=>{
         if(v.password==password){
-        let currToken = jwt.sign({"_id": v._id},process.env.ATP);
+        let currToken = jwt.sign({"_id": v._id},"admintkn");
         v.tokens = v.tokens.concat({token: currToken})
         admin.findByIdAndUpdate(v._id,{tokens: v.tokens}).then((v)=>{
             console.log("here")
