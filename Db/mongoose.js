@@ -17,9 +17,7 @@ function fire(){
         
     });
 }
-function fire1(){
-    mongoose.connection.close();
-}
+fire();
 
 module.exports = fire;
 

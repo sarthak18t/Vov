@@ -18,10 +18,10 @@ const fire = require('./Db/mongoose');
 app.use(express.json());
 app.use((req,res,next)=>{
     if(mongoose.connection.readyState==2||mongoose.connection.readyState==0){
-    fire()
     res.status(400).send({"message":"db is down"});
     }
     else
+    {return res.send("hello")}
     next();
 })
 app.use(playeri);
