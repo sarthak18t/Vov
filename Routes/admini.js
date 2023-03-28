@@ -25,7 +25,7 @@ router.post('/admin/setuser',(req,res)=>{
         res.status(400).send({"error":"User set is failed"});
     });
 })
-router.get('/admin/login',(req,res)=>{
+router.post('/admin/login',(req,res)=>{
     console.log("Login User")
     let email = req.body.email;
     let password = req.body.password;
