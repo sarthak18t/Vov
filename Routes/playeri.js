@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const auth = require('../Auth/playerauth')
 dotenv.config();
 
-router.get('/player/login',(req,res)=>{
+router.post('/player/login',(req,res)=>{
     console.log("Login User")
     let email = req.body.email;
     let password = req.body.password;
