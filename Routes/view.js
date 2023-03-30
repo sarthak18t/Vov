@@ -7,7 +7,7 @@ router.use(cors());
 
 router.get('/view/players',async (req,res)=>{
     try {
-        let players = await player.find({});
+        let players = await player.find({},'name email');
         if(players){
         res.status(200).send(players);
         }
