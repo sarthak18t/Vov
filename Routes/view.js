@@ -21,6 +21,19 @@ router.get('/view/players',auth,async (req,res)=>{
     }
 })
 
+router.get('/view/players/:uid',auth,(req,res)=>{
+    let uid = req.params.uid;
+    player.findById(uid,'name email gender height weight')
+    .then((v)=>{
+        if(v)
+        res.send(v);
+        else
+        res.status(400).send({"error":"Player fetch failed"});
+    })
+    .catch((err)=>{
+        res.status(400).send({"error":"Player fetch failed1"});
+    })
 
+})
 
 module.exports = router;
