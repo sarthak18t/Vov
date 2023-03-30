@@ -20,12 +20,12 @@ const cmatch = mongoose.model('cmatch',{
     },
     s1:{
         type: String,
-        required: false,
+        required: true,
         default: "0/0"
     },
     s2:{
         type: String,
-        required: false,
+        required: true,
         default: "0/0"
     },
     wt:{
