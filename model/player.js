@@ -4,11 +4,11 @@ const validator = require('validator');
 const player = mongoose.model('player',{
     name:{
         type: String,
-        require:true
+        required:true
     },
     email:{
         type: String,
-        require:true,
+        required:true,
         trim: true,
         validate(value){
             if(!validator.isEmail(value)){
@@ -25,11 +25,11 @@ const player = mongoose.model('player',{
     },
     password:{
         type: String,
-        require: true
+        required: true
     },
     gender:{
         type: String,
-        require: true,
+        required: true,
         
         validate(value){
             if(!value=="male"||!value=="female"||!value=="other"){
@@ -40,11 +40,11 @@ const player = mongoose.model('player',{
     },
     height:{
         type: Number,
-        require: true
+        required: true
     },
     weight:{
         type: Number,
-        require: true
+        required: true
     },
     tokens:[
         {

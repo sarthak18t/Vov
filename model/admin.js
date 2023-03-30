@@ -4,11 +4,11 @@ const validator = require('validator')
 const admin = mongoose.model('admin',{
     name:{
         type: String,
-        require:true
+        required:true
     },
     email:{
         type: String,
-        require:true,
+        required:true,
         trim: true,
         validate(value){
             if(!validator.isEmail(value)){
@@ -25,7 +25,7 @@ const admin = mongoose.model('admin',{
     },
     password:{
         type: String,
-        require: true
+        required: true
     },
     tokens:[
         {
