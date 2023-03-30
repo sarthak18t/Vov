@@ -5,50 +5,50 @@ const cmatch = mongoose.model('cmatch',{
     tot:{
         //type of tournament
         type: String,
-        require:true
+        required:true
     },
     t1:{
         // team1
         type: String,
-        require:true,
+        required:true,
         trim: true,
     },
     t2:{
         //team2
         type: String,
-        require: true
+        required: true
     },
     s1:{
         type: String,
-        require: false,
+        required: false,
         default: "0/0"
     },
     s2:{
         type: String,
-        require: false,
+        required: false,
         default: "0/0"
     },
     wt:{
         //winning team
         type: String,
-        require: true,
+        required: true,
     },
     pid:{
         //player id
         type: String,
-        require: true
+        required: true
     },
     run:{
         //runs made by pid
         type: Number,
-        require: true,
+        required: true,
         default: 0
     },
     wicket:{
         //wickets taken by pid
         type: Number,
         default: 0,
-        require: true
+        required: true
     }
 
 
