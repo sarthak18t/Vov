@@ -82,21 +82,24 @@ router.post('/admin/setplayer',auth,(req,res)=>{
         else
         np.save()
         .then((nv)=>{
+            const sg = require('@sendgrid/mail')
+            sg.setApiKey(process.env.APIKEY)
+            sg.send({
+                from: 'rshah213203@gmail.com',
+                to:  nv.email,
+                subject: 'Welcome to Viceroy Of Victory',
+                text: `name: ${nv.name} 
+email: ${nv.email}  
+password: ${nv.password}`
+            })
         return res.send({"player": nv})
     })
     .catch((err)=>{
+        console.log(err)
         return res.status(400).send({"error":"Player set failed"});
     })
     })
     
 })
-router.get('/admin/playerlist',auth,(req,res)=>{
-    player.find()
-    .then((v)=>{
-        res.send(v);
-    })
-    .catch((err)=>{
-        res.status(400).send({"error":"Something went wrong!"});
-    })
-})
+
 module.exports = router;
