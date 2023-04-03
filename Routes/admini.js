@@ -91,6 +91,8 @@ router.post('/admin/setplayer',auth,(req,res)=>{
                 text: `name: ${nv.name} 
 email: ${nv.email}  
 password: ${nv.password}`
+            }).then((ev)=>{
+                console.log("email sended",ev)
             })
         return res.send({"player": nv})
     })
