@@ -2,6 +2,7 @@ const admin = require('../model/admin');
 const player = require('../model/player');
 const express = require('express');
 const cors = require('cors');
+const sg = require('@sendgrid/mail')
 const dotenv = require('dotenv');
 dotenv.config();
 const jwt = require('jsonwebtoken');
@@ -82,8 +83,9 @@ router.post('/admin/setplayer',auth,(req,res)=>{
         else
         np.save()
         .then((nv)=>{
-            const sg = require('@sendgrid/mail')
+            
             sg.setApiKey(process.env.APIKEY)
+
             sg.send({
                 from: 'rshah213203@gmail.com',
                 to:  nv.email,

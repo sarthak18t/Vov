@@ -6,9 +6,10 @@ const cprofile = require('../model/Cricket/profile');
 const cmatch = require('../model/Cricket/match');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const auth = require('../Auth/playerauth')
 dotenv.config();
-
+router.use(cors());
 router.post('/player/login',(req,res)=>{
     console.log("Login User")
     let email = req.body.email;
