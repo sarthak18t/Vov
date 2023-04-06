@@ -72,9 +72,10 @@ router.post('/admin/setplayer',auth,(req,res)=>{
         name:req.body.name,
         email:req.body.email,
         password:req.body.password,
+        studentid:req.body.studentid,
         gender:req.body.gender,
         height:req.body.height,
-        weight:req.body.weight,
+        weight:req.body.weight
     }
     )
     player.findOne({email:req.body.email}).then((v)=>{

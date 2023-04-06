@@ -16,6 +16,10 @@ const bmatch = mongoose.model('bmatch',{
         type: String,
         required: true
     },
+    oid:{
+        type: Number,
+        required: true
+    },
     s1:{
         //your score
         type:Number,
