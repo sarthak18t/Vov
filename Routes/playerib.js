@@ -11,6 +11,8 @@ dotenv.config();
 
 router.post('/player/badminton/addmatch',auth,(req,res)=>{
     console.log("Add badminton Match");
+    if(req.body.oid==req.studentid)
+    return res.send({"error":"Invalid Opponent id"})
     let match = {
         tot: req.body.tot,
         pid: req.id,
