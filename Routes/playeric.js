@@ -32,8 +32,11 @@ router.post('/player/cricket/addmatch',auth,(req,res)=>{
                 .then((vi)=>{
                 if(vi){
                     cprofile.findByIdAndUpdate(vi._id,{run: Number(vi.run+v.run),wicket: Number(vi.wicket+v.wicket)})
-                    .then((v)=>{
-                            
+                    .then(async (v)=>{   
+                        await player.findByIdAndUpdate(req.id,{cricket:true})
+                        .then((nvv)=>{
+                            console.log("updated",nvv)
+                        })
                         return res.send({"message":"Match set"});
                     })
                     .catch((err)=>{
@@ -47,7 +50,11 @@ router.post('/player/cricket/addmatch',auth,(req,res)=>{
                         wicket: req.body.wicket,
                     })
                     nprofile.save()
-                    .then((v)=>{
+                    .then(async (v)=>{   
+                        await player.findByIdAndUpdate(req.id,{cricket:true})
+                        .then((nvv)=>{
+                            console.log("updated",nvv)
+                        })
                         return res.send({"message":"Match set"});
                     })
                     .catch((err)=>{

@@ -25,7 +25,7 @@ router.get('/view/players',auth,async (req,res)=>{
 
 router.get('/view/players/:uid',auth,(req,res)=>{
     let uid = req.params.uid;
-    player.findById(uid,'name email gender height weight')
+    player.findById(uid,'name email gender height weight cricket badminton football')
     .then((v)=>{
         if(v)
         res.send(v);

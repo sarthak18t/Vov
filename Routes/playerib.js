@@ -39,9 +39,15 @@ router.post('/player/badminton/addmatch',auth,(req,res)=>{
             }
             omatch = new bmatch(omatch);
             omatch.save()
-            .then((os)=>{
-                if(os)
+            .then(async (os)=>{
+                if(os){
+                     
+                        await player.findByIdAndUpdate(req.id,{badminton:true})
+                        .then((nvv)=>{
+                            console.log("updated",nvv)
+                        })
                 res.status(200).send({"message":"BMatch Set"});
+                }
                 else
                 res.status(400).send({"error":"BMatch set failed"})
             })

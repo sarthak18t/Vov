@@ -31,7 +31,11 @@ router.post('/player/football/addmatch',auth,(req,res)=>{
                 .then((vi)=>{
                 if(vi){
                     fprofile.findByIdAndUpdate(vi._id,{goal: Number(vi.goal+v.goal)})
-                    .then((v)=>{       
+                    .then(async (v)=>{   
+                        await player.findByIdAndUpdate(req.id,{football:true})
+                        .then((nvv)=>{
+                            console.log("updated",nvv)
+                        })  
                         return res.send({"message":"Match set"});
                     })
                     .catch((err)=>{
@@ -44,7 +48,11 @@ router.post('/player/football/addmatch',auth,(req,res)=>{
                         goal: req.body.run
                     })
                     nprofile.save()
-                    .then((v)=>{
+                    .then(async (v)=>{
+                        await player.findByIdAndUpdate(req.id,{football:true})
+                        .then((nvv)=>{
+                            console.log("updated",nvv)
+                        })
                         return res.send({"message":"Match set"});
                     })
                     .catch((err)=>{
