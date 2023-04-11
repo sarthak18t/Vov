@@ -46,6 +46,11 @@ router.post('/player/badminton/addmatch',auth,(req,res)=>{
                         .then((nvv)=>{
                             console.log("updated",nvv)
                         })
+                        await player.findByIdAndUpdate(eo._id,{badminton:true})
+                        .then((nvv)=>{
+                            console.log("updated",nvv)
+                        })
+
                 res.status(200).send({"message":"BMatch Set"});
                 }
                 else
