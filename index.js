@@ -12,6 +12,7 @@ const playeri = require('./Routes/playeri')
 const playeric = require('./Routes/playeric')
 const playerib = require('./Routes/playerib')
 const playerif = require('./Routes/playerif')
+const playerit = require('./Routes/playeritt')
 const views = require('./Routes/view')
 const { default: mongoose } = require('mongoose');
 const fire = require('./Db/mongoose');
@@ -31,6 +32,7 @@ app.use((req,res,next)=>{
 app.use(playerif);
 app.use(playerib);
 app.use(playeric);
+app.use(playerit);
 app.use(playeri);
 app.use(addi);
 app.use(views);
@@ -39,4 +41,3 @@ app.listen(port,()=>{
     fire();
     console.log("app is running at "+port);
 })
-
