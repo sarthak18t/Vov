@@ -10,7 +10,20 @@ const tmatch = require('../model/Table tennis/match');
 const auth = require('../Auth/playerauth')
 router.use(cors());
 
+router.get('/self/players/detail',auth,(req,res)=>{
+    let uid = req.id;
+    player.findById(uid,'name email studentid gender height weight cricket badminton football tt')
+    .then((v)=>{
+        if(v)
+        res.send(v);
+        else
+        res.status(400).send({"error":"Player fetch failed"});
+    })
+    .catch((err)=>{
+        res.status(400).send({"error":"Player fetch failed1"});
+    })
 
+})
 
 router.get('/self/players/badminton/',auth,(req,res)=>{
     let uid = req.id;
