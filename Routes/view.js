@@ -9,6 +9,21 @@ const bmatch = require('../model/Badminton/match');
 const tmatch = require('../model/Table tennis/match');
 const auth = require('../Auth/adminauth')
 router.use(cors());
+router.get('/search/players/:squery',auth,async (req,res)=>{
+    console.log("search player containing ",req.params.squery);
+    try {
+        let players = await player.find({name: {$regex: req.params.squery, $options: 'i'}},'name email');
+        if(players){
+        res.status(200).send(players);
+        }
+        else
+        res.status(400).send({"error":"No players found"})
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400).send({"error":"Something went wrong"})
+    }
+})
 
 router.get('/view/players',auth,async (req,res)=>{
     try {

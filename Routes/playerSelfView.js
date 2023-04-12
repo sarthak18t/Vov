@@ -12,7 +12,7 @@ router.use(cors());
 
 
 
-router.get('/self/players/badminton',auth,(req,res)=>{
+router.get('/self/players/badminton/',auth,(req,res)=>{
     let uid = req.id;
     bmatch.find({pid:uid},'tot s1 s2 oname wt')
     .then((v)=>{
