@@ -7,6 +7,8 @@ const cmatch = require('../model/Cricket/match');
 const fmatch = require('../model/Football/fmatch')
 const bmatch = require('../model/Badminton/match');
 const tmatch = require('../model/Table tennis/match');
+const fprofile = require('../model/Football/fprofile');
+const cprofile = require('../model/Cricket/profile');
 const auth = require('../Auth/adminauth')
 router.use(cors());
 router.get('/search/players/:squery',auth,async (req,res)=>{
@@ -40,12 +42,29 @@ router.get('/view/players',auth,async (req,res)=>{
     }
 })
 
-router.get('/view/players/:uid',auth,(req,res)=>{
+router.get('/view/players/:uid',auth, (req,res)=>{
     let uid = req.params.uid;
     player.findById(uid,'name email gender height weight cricket badminton football')
-    .then((v)=>{
-        if(v)
-        res.send(v);
+    .then(async(v)=>{
+        var f = {"goal":0}; 
+        var c = {"run":0,"wicket":0};
+
+        if(v){
+        await cprofile.findOne({pid: v._id}).then((cpf)=>{
+         
+            if(cpf){
+            c.run = cpf.run;
+            c.wicket = cpf.wicket;
+
+            }
+        });
+        await fprofile.findOne({pid: v._id}).then((fpf)=>{
+            
+            if(fpf){
+                f.goal = `${fpf.goal}`;}
+        });
+        res.send([v,f,c]);
+        }
         else
         res.status(400).send({"error":"Player fetch failed"});
     })
