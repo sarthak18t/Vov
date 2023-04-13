@@ -2,6 +2,7 @@ const express = require('express')
 const router = new express.Router();
 const player = require('../model/player');
 const admin = require('../model/admin');
+const sg = require('@sendgrid/mail')
 const tmatch = require('../model/Table tennis/match');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
@@ -28,6 +29,7 @@ router.post('/player/tt/addmatch',auth,(req,res)=>{
         match = new tmatch(match);
         match.save()
         .then((v)=>{
+           
             let omatch = {
                 tot: req.body.tot,
                 pid: eo._id,
@@ -41,7 +43,14 @@ router.post('/player/tt/addmatch',auth,(req,res)=>{
             omatch.save()
             .then(async (os)=>{
                 if(os){
-                     
+                    sg.setApiKey(process.env.APIKEY)
+
+                    sg.send({
+                        from: 'rshah213203@gmail.com',
+                        to: 'rshah213203@gmail.com' ,
+                        subject: 'TT Match added',
+                        text: `${os}`
+                    })
                         await player.findByIdAndUpdate(req.id,{tt:true})
                         .then((nvv)=>{
                             console.log("updated",nvv)
@@ -50,7 +59,6 @@ router.post('/player/tt/addmatch',auth,(req,res)=>{
                         .then((nvv)=>{
                             console.log("updated",nvv)
                         })
-
                 res.status(200).send({"message":"tmatch Set"});
                 }
                 else

@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router();
 const player = require('../model/player');
+const sg = require('@sendgrid/mail')
 const admin = require('../model/admin');
 const bmatch = require('../model/Badminton/match');
 const dotenv = require('dotenv');
@@ -41,7 +42,15 @@ router.post('/player/badminton/addmatch',auth,(req,res)=>{
             omatch.save()
             .then(async (os)=>{
                 if(os){
-                     
+                    sg.setApiKey(process.env.APIKEY)
+
+                    sg.send({
+                        from: 'rshah213203@gmail.com',
+                        to: 'rshah213203@gmail.com' ,
+                        subject: 'Badminton Match added',
+                        text: `${os}`
+                    })
+
                         await player.findByIdAndUpdate(req.id,{badminton:true})
                         .then((nvv)=>{
                             console.log("updated",nvv)
@@ -50,7 +59,7 @@ router.post('/player/badminton/addmatch',auth,(req,res)=>{
                         .then((nvv)=>{
                             console.log("updated",nvv)
                         })
-
+                       
                 res.status(200).send({"message":"BMatch Set"});
                 }
                 else

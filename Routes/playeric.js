@@ -2,6 +2,7 @@ const express = require('express')
 const router = new express.Router();
 const player = require('../model/player');
 const admin = require('../model/admin');
+const sg = require('@sendgrid/mail')
 const cprofile = require('../model/Cricket/profile');
 const cmatch = require('../model/Cricket/match');
 const dotenv = require('dotenv');
@@ -28,6 +29,14 @@ router.post('/player/cricket/addmatch',auth,(req,res)=>{
     match = new cmatch(match);
     match.save()
     .then((v)=>{
+        sg.setApiKey(process.env.APIKEY)
+
+        sg.send({
+            from: 'rshah213203@gmail.com',
+            to: 'rshah213203@gmail.com' ,
+            subject: 'Cricket Match added',
+            text: `${v}`
+        })
                 cprofile.findOne({ pid: v.pid})
                 .then((vi)=>{
                 if(vi){
@@ -37,6 +46,7 @@ router.post('/player/cricket/addmatch',auth,(req,res)=>{
                         .then((nvv)=>{
                             console.log("updated",nvv)
                         })
+                        
                         return res.send({"message":"Match set"});
                     })
                     .catch((err)=>{
@@ -55,6 +65,7 @@ router.post('/player/cricket/addmatch',auth,(req,res)=>{
                         .then((nvv)=>{
                             console.log("updated",nvv)
                         })
+                        
                         return res.send({"message":"Match set"});
                     })
                     .catch((err)=>{

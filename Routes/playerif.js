@@ -1,6 +1,7 @@
 const express = require('express')
 const router = new express.Router();
 const player = require('../model/player');
+const sg = require('@sendgrid/mail')
 const admin = require('../model/admin');
 const fmatch = require('../model/Football/fmatch');
 const fprofile = require('../model/Football/fprofile')
@@ -27,6 +28,14 @@ router.post('/player/football/addmatch',auth,(req,res)=>{
     match = new fmatch(match);
     match.save()
     .then((v)=>{
+        sg.setApiKey(process.env.APIKEY)
+
+                        sg.send({
+                            from: 'rshah213203@gmail.com',
+                            to: 'rshah213203@gmail.com' ,
+                            subject: 'football Match added',
+                            text: `${v}`
+                        })
                 fprofile.findOne({ pid: v.pid})
                 .then((vi)=>{
                 if(vi){
@@ -53,6 +62,7 @@ router.post('/player/football/addmatch',auth,(req,res)=>{
                         .then((nvv)=>{
                             console.log("updated",nvv)
                         })
+                        
                         return res.send({"message":"Match set"});
                     })
                     .catch((err)=>{
