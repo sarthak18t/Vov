@@ -4,6 +4,7 @@ const player = require('../model/player');
 const sg = require('@sendgrid/mail')
 const admin = require('../model/admin');
 const bmatch = require('../model/Badminton/match');
+const bprofile = require('../model/Badminton/profile');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 const auth = require('../Auth/playerauth')
@@ -58,6 +59,18 @@ router.post('/player/badminton/addmatch',auth,(req,res)=>{
                         await player.findByIdAndUpdate(eo._id,{badminton:true})
                         .then((nvv)=>{
                             console.log("updated",nvv)
+                        })
+                        let wid = (v.wt)?req.id:eo.id;
+                        await bprofile.findOne({pid: wid})
+                        .then(async (bpf)=>{
+                            if(bpf) {
+                                await bprofile.findOneAndUpdate({pid:wid},{mw: bpf.mw+1});
+                            }
+                            else{
+                                let nbp = {pid:wid , mw:1};
+                                nbp = new bprofile(nbp);
+                                await nbp.save();
+                            }
                         })
                        
                 res.status(200).send({"message":"BMatch Set"});

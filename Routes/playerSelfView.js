@@ -7,16 +7,48 @@ const cmatch = require('../model/Cricket/match');
 const fmatch = require('../model/Football/fmatch')
 const bmatch = require('../model/Badminton/match');
 const tmatch = require('../model/Table tennis/match');
+const fprofile = require('../model/Football/fprofile');
+const cprofile = require('../model/Cricket/profile');
+const tprofile = require('../model/Table tennis/profile');
+const bprofile = require('../model/Badminton/profile');
 const auth = require('../Auth/playerauth')
 router.use(cors());
 
 router.get('/self/players/detail',auth,(req,res)=>{
     let uid = req.id;
-    player.findById(uid,'name email studentid gender height weight cricket badminton football tt')
-    .then((v)=>{
-        if(v)
-        res.send(v);
-        else
+    player.findById(uid,'name email gender height weight cricket badminton football')
+    .then(async(v)=>{
+        var f = {"goal":0}; 
+        var c = {"run":0,"wicket":0};
+        var b = {"mw":0};
+        var t = {"mw":0};
+
+        if(v){
+        await cprofile.findOne({pid: v._id}).then((cpf)=>{
+         
+            if(cpf){
+            c.run = cpf.run;
+            c.wicket = cpf.wicket;
+
+            }
+        });
+        await fprofile.findOne({pid: v._id}).then((fpf)=>{
+            
+            if(fpf){
+                f.goal = fpf.goal;}
+        });
+        await bprofile.findOne({pid: v._id}).then((bpf)=>{
+           
+            if(bpf){
+                b.mw = bpf.mw;}
+        }); 
+        await tprofile.findOne({pid: v._id}).then((tpf)=>{
+          
+            if(tpf){
+                t.mw = tpf.mw;}
+        }); 
+        return res.send([v,f,c,b,t]);
+        }
         res.status(400).send({"error":"Player fetch failed"});
     })
     .catch((err)=>{
