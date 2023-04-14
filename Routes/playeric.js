@@ -8,6 +8,8 @@ const cmatch = require('../model/Cricket/match');
 const dotenv = require('dotenv');
 const jwt = require('jsonwebtoken');
 const auth = require('../Auth/playerauth')
+const cors = require('cors');
+router.use(cors());
 dotenv.config();
 
 
