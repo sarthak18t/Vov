@@ -13,6 +13,7 @@ const playeric = require('./Routes/playeric')
 const playerib = require('./Routes/playerib')
 const playerif = require('./Routes/playerif')
 const playerit = require('./Routes/playeritt')
+const guest  = require('./Routes/guest')
 const psv = require('./Routes/playerSelfView')
 const views = require('./Routes/view')
 const { default: mongoose } = require('mongoose');
@@ -38,6 +39,7 @@ app.use(playeri);
 app.use(psv);
 app.use(addi);
 app.use(views);
+app.use(guest);
 
 app.listen(port,()=>{
     fire();
