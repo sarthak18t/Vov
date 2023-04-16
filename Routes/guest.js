@@ -188,7 +188,7 @@ router.get('/guest/all/badminton',(req,res)=>{
                }
                resjson.push(nobj);
                if(index===odm.length-1){
-                console.log(resjson)
+
                 return res.send(resjson);
                 }
             })
