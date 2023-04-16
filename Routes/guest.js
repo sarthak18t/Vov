@@ -149,4 +149,99 @@ router.get('/guest/view/players/cricket/:uid',(req,res)=>{
 
 })
 
+router.get('/guest/all/football',(req,res)=>{
+    fmatch.find({})
+    .then((fbm)=>{
+        res.send(fbm);
+    })
+    .catch((err)=>{
+        res.status(400).send({"message":"fetch failed"});
+    })
+})
+
+router.get('/guest/all/cricket',(req,res)=>{
+    cmatch.find({})
+    .then((cbm)=>{
+        res.send(cbm);
+    })
+    .catch((err)=>{
+        res.status(400).send({"message":"fetch failed"});
+    })
+})
+router.get('/guest/all/badminton',(req,res)=>{
+    bmatch.find({})
+    .then((bbm)=>{
+        const odm = getObjectAtOddIndex(bbm);
+        let resjson = [];
+        odm.forEach(function (arrayItem,index) {
+            player.findById(odm[index].pid)
+            .then((ans)=>{
+               
+               let nobj = {
+                    tot: arrayItem.tot,
+                    pid: ans.name,
+                    oname: arrayItem.oname,
+                    oid: arrayItem.oid,
+                    s1: arrayItem.s1,
+                    s2: arrayItem.s2,
+                    wt: arrayItem.wt
+               }
+               resjson.push(nobj);
+               if(index===odm.length-1){
+                console.log(resjson)
+                return res.send(resjson);
+                }
+            })
+            
+        });
+        
+    })
+    .catch((err)=>{
+        res.status(400).send({"message":"fetch failed"});
+    })
+})
+
+router.get('/guest/all/tt',(req,res)=>{
+    tmatch.find({})
+    .then((tbm)=>{
+        const odm = getObjectAtOddIndex(tbm);
+        let resjson = [];
+        odm.forEach(function (arrayItem,index) {
+            player.findById(odm[index].pid)
+            .then((ans)=>{
+               
+               let nobj = {
+                    tot: arrayItem.tot,
+                    pid: ans.name,
+                    oname: arrayItem.oname,
+                    oid: arrayItem.oid,
+                    s1: arrayItem.s1,
+                    s2: arrayItem.s2,
+                    wt: arrayItem.wt
+               }
+               resjson.push(nobj);
+               if(index===odm.length-1){
+                return res.send(resjson);
+                }
+            })
+            
+        });
+        
+    })
+    .catch((err)=>{
+        res.status(400).send({"message":"fetch failed"});
+    })
+})
+
+function getObjectAtOddIndex(arr) {
+    const result = [];
+    for (let i = 1; i < arr.length; i += 2) {
+      result.push(arr[i]);
+    }
+    return result;
+  }
+  
+
+
+
 module.exports = router;
