@@ -12,7 +12,7 @@ const cprofile = require('../model/Cricket/profile');
 const tprofile = require('../model/Table tennis/profile');
 const bprofile = require('../model/Badminton/profile');
 router.use(cors());
-router.get('guest/search/players/:squery',async (req,res)=>{
+router.get('/guest/search/players/:squery',async (req,res)=>{
     console.log("search player containing ",req.params.squery);
     try {
         let players = await player.find({name: {$regex: req.params.squery, $options: 'i'}},'name email');
@@ -27,7 +27,7 @@ router.get('guest/search/players/:squery',async (req,res)=>{
         res.status(400).send({"error":"Something went wrong"})
     }
 })
-router.get('guest/search/players/',async (req,res)=>{
+router.get('/guest/search/players/',async (req,res)=>{
     try {
         let players = await player.find({},'name email');
         if(players){
