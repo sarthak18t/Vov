@@ -27,6 +27,42 @@ router.get('/guest/search/players/:squery',async (req,res)=>{
         res.status(400).send({"error":"Something went wrong"})
     }
 })
+router.get('/guest/view/players/cricket',(req,res)=>{
+    player.find({cricket:true},'name email')
+    .then((v)=>{
+        return res.status(200).send(v);
+    })
+    .catch((err)=>{
+        return res.status(400).send({"message":"Fetch Failed!"});
+    })
+})
+router.get('/guest/view/players/badminton',(req,res)=>{
+    player.find({badminton:true},'name email')
+    .then((v)=>{
+        return res.status(200).send(v);
+    })
+    .catch((err)=>{
+        return res.status(400).send({"message":"Fetch Failed!"});
+    })
+})
+router.get('/guest/view/players/football',(req,res)=>{
+    player.find({football:true},'name email')
+    .then((v)=>{
+        return res.status(200).send(v);
+    })
+    .catch((err)=>{
+        return res.status(400).send({"message":"Fetch Failed!"});
+    })
+})
+router.get('/guest/view/players/tt',(req,res)=>{
+    player.find({tt:true},'name email')
+    .then((v)=>{
+        return res.status(200).send(v);
+    })
+    .catch((err)=>{
+        return res.status(400).send({"message":"Fetch Failed!"});
+    })
+})
 router.get('/guest/search/players/',async (req,res)=>{
     try {
         let players = await player.find({},'name email');
