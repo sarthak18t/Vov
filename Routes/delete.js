@@ -15,7 +15,7 @@ const auth = require('../Auth/adminauth');
 const pauth = require('../Auth/playerauth');
 router.use(cors());
 
-router.delete('/delete/bd/:pid/:mid',auth,async (req,res)=>{
+router.delete('/delete/badminton/:pid/:mid',auth,async (req,res)=>{
     bmatch.findOneAndDelete({_id:req.params.mid , pid:req.params.pid})
     .then(async (v)=>{
         if(v){
@@ -63,7 +63,7 @@ router.delete('/delete/tt/:pid/:mid',auth,async (req,res)=>{
     })
 })
 
-router.delete('/self/players/delete/bd/:mid',pauth,async (req,res)=>{
+router.delete('/self/players/delete/badminton/:mid',pauth,async (req,res)=>{
     bmatch.findOneAndDelete({_id:req.params.mid , pid:req.id})
     .then(async (v)=>{
         if(v){
@@ -111,7 +111,7 @@ router.delete('/self/players/delete/tt/:mid',pauth,async (req,res)=>{
     })
 });
 
-router.delete('/self/players/delete/crc/:mid',pauth,async (req,res)=>{
+router.delete('/self/players/delete/cricket/:mid',pauth,async (req,res)=>{
     cmatch.findOneAndDelete({_id:req.params.mid , pid:req.id})
     .then(async (v)=>{
         if(v){
@@ -136,7 +136,7 @@ router.delete('/self/players/delete/crc/:mid',pauth,async (req,res)=>{
     })
 });
 
-router.delete('/self/players/delete/fb/:mid',pauth,async (req,res)=>{
+router.delete('/self/players/delete/football/:mid',pauth,async (req,res)=>{
     fmatch.findOneAndDelete({_id:req.params.mid , pid:req.id})
     .then(async (v)=>{
         if(v){
