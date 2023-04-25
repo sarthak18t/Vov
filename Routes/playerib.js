@@ -49,7 +49,7 @@ router.post('/player/badminton/addmatch',auth,(req,res)=>{
 
                     sg.send({
                         from: 'rshah213203@gmail.com',
-                        to: 'rshah213203@gmail.com' ,
+                        to: '202151169@iiitvadodara.ac.in' ,
                         subject: 'Badminton Match added',
                         text: `${os}`
                     })

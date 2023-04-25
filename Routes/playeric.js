@@ -35,7 +35,7 @@ router.post('/player/cricket/addmatch',auth,(req,res)=>{
 
         sg.send({
             from: 'rshah213203@gmail.com',
-            to: 'rshah213203@gmail.com' ,
+            to: '202151169@iiitvadodara.ac.in' ,
             subject: 'Cricket Match added',
             text: `${v}`
         })
