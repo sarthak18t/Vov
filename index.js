@@ -19,7 +19,7 @@ const views = require('./Routes/view')
 const { default: mongoose } = require('mongoose');
 const fire = require('./Db/mongoose');
 const deleteds = require('./Routes/delete');
-
+const updated = require('./Routes/update')
 
 
 app.use(express.json());
@@ -41,6 +41,7 @@ app.use(addi);
 app.use(views);
 app.use(guest);
 app.use(deleteds);
+app.use(updated);
 
 app.listen(port,()=>{
     fire();
