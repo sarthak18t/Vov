@@ -1,6 +1,6 @@
 
 # Viceroys of Victories 
-# (Sports Management System)
+# (Athlete Management System)
 
 
 
