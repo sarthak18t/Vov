@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
 const pwd = process.env.DBPASS;
-const url = "mongodb+srv://admin:"+pwd+"@victory.tzjc9sv.mongodb.net/?retryWrites=true&w=majority&appName=Victory";
+const url = "mongodb+srv://admin:"+pwd+"@victory.tzjc9sv.mongodb.net/vcov?retryWrites=true&w=majority";
 function fire(){
     mongoose.connect(url,{
         useNewUrlParser: true,
