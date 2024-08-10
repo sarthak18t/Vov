@@ -1,10 +1,8 @@
 const express = require('express');
 const app =express();
-const dotenv = require('dotenv');
-dotenv.config();
 require('./Db/mongoose')
 const bdp = require('body-parser');
-const port = process.env.PORT||3000;
+const port = 3000;
 const admin = require('./model/admin');
 const player = require('./model/player');
 const addi = require('./Routes/admini');
